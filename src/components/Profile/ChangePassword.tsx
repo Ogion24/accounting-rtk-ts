@@ -1,17 +1,23 @@
 import {useState} from "react";
 
-const ChangePassword = () => {
+interface Props{
+    close:()=>void;
+}
+
+const ChangePassword = ({close}: Props) => {
     const [oldPassword, setOldPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const handleClickSave = () =>{
-        //TODO implement change password save and close func
-        alert('password changed successfully!');
+        if(newPassword === confirmPassword) {
+            //TODO implement change password save and close func
+            alert('password changed successfully!');
+        }else{
+            alert('New password and confirmed password dont match');
+        }
+        close()
     }
-    const handleClickClose = ()=> {
-        ////TODO implement change password  close  without saving func
-        alert('Changing password canceled!');
-    }
+
     const handleClickClear = ()=> {
         setOldPassword('');
         setNewPassword('');
@@ -42,7 +48,7 @@ const ChangePassword = () => {
                 />
             </label>
             <button onClick={handleClickSave}>Save and close</button>
-            <button onClick={handleClickClose}>Close without saving</button>
+            <button onClick={close}>Close without saving</button>
             <button onClick={handleClickClear}>Clear</button>
         </>
     );
