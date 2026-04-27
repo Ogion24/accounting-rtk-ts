@@ -8,9 +8,10 @@ const Guest = () => {
         <div>
             {isSignIn ? <SignIn/> : <SignUp/>}
             <button onClick={() => setIsSignIn(!isSignIn)}>
-               Switch to  {isSignIn ? "Sign Up" : "Sign In"}
+                Switch to {isSignIn ? "Sign Up" : "Sign In"}
             </button>
         </div>
     )
 }
+
 export default Guest;

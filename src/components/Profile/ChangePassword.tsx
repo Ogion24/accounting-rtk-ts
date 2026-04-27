@@ -1,57 +1,60 @@
 import {useState} from "react";
+import {useAppDispatch} from "../../app/hooks.ts";
+import {changePassword} from "../../features/api/accountApi.ts";
 
-interface Props{
-    close:()=>void;
+interface Props {
+    close: () => void;
 }
 
 const ChangePassword = ({close}: Props) => {
     const [oldPassword, setOldPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const handleClickSave = () =>{
-        if(newPassword === confirmPassword) {
-            //TODO implement change password save and close func
-            alert('password changed successfully!');
-        }else{
-            alert('New password and confirmed password dont match');
+    const dispatch = useAppDispatch();
+
+    const handleClickSave = () => {
+        if (newPassword === confirmPassword) {
+            dispatch(changePassword(newPassword));
+            close();
+        } else {
+            alert('New password and confirm password do not match');
         }
-        close()
     }
 
-    const handleClickClear = ()=> {
+    const handleClickClear = () => {
         setOldPassword('');
         setNewPassword('');
         setConfirmPassword('');
-
     }
+
     return (
         <>
             <label>Old Password:
-            <input
-            type="password"
-            value={oldPassword}
-            onChange={(e) => setOldPassword(e.target.value)}
-            />
+                <input
+                    type="password"
+                    value={oldPassword}
+                    onChange={(e) => setOldPassword(e.target.value)}
+                />
             </label>
             <label>New Password:
                 <input
                     type="password"
                     value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
+                    onChange={(e) => setNewPassword(e.target.value)}
                 />
             </label>
-            <label>Confirm Password
+            <label>Confirm Password:
                 <input
-                type="password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
+                    type="password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
                 />
             </label>
             <button onClick={handleClickSave}>Save and close</button>
             <button onClick={close}>Close without saving</button>
             <button onClick={handleClickClear}>Clear</button>
         </>
-    );
-};
+    )
+}
 
 export default ChangePassword;

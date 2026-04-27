@@ -1,21 +1,20 @@
 import './App.css'
+import Guest from "./components/Guest";
 import Profile from "./components/Profile";
 import {Navigate, Route, Routes} from "react-router";
-import Guest from "./components/Guest";
+import {useAppSelector} from "./app/hooks.ts";
 
+function App() {
 
+    const token = useAppSelector(state => state.token);
 
-const App = () => {
-    //TODO Implement token retrieval from global state logic
-    const token = 'fnjfmhmkghk';
-  return (
-      <Routes>
-          <Route path="/" element={token ? <Navigate to={'/profile'} replace/>:<Guest/>}/>
-          <Route path="/profile" element={token ? <Profile/> : <Navigate to={'/'} replace/> }/>
-      </Routes>
+    return (
+        <Routes>
+            <Route path="/" element={token ? <Navigate to={'/profile'} replace/> : <Guest/>}/>
+            <Route path={'/profile'} element={token ? <Profile/> : <Navigate to={'/'} replace/>}/>
+        </Routes>
 
-//12:30
-  )
+    )
 }
 
-export default App;
+export default App
