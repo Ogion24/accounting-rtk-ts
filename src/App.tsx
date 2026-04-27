@@ -14,7 +14,7 @@ const App = () => {
           <Route path="/profile" element={token ? <Profile/> : <Navigate to={'/'} replace/> }/>
       </Routes>
 
-
+//12:30
   )
 }
 
